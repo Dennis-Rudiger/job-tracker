@@ -8,6 +8,7 @@ const connectDB = async () => {
       serverSelectionTimeoutMS: 15000,
       autoIndex: true,
       maxPoolSize: 10,
+      dbName: process.env.MONGO_DB_NAME || 'job-tracker',
     });
     console.log('MongoDB connected');
   } catch (err) {

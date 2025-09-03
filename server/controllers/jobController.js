@@ -80,3 +80,30 @@ export const deleteJob = async (req, res, next) => {
     next(err);
   }
 };
+
+export const exportJobsCsv = async (req, res, next) => {
+  try {
+    const jobs = await Job.find({ createdBy: req.user._id }).sort({ createdAt: -1 }).lean();
+    const headers = [
+      'company', 'position', 'status', 'location', 'salary', 'link', 'notes', 'dateApplied', 'createdAt', 'updatedAt'
+    ];
+    const esc = (v) => {
+      if (v === null || v === undefined) return '';
+      const s = String(v).replace(/"/g, '""');
+      return /[",\n]/.test(s) ? `"${s}"` : s;
+    };
+    const rows = [headers.join(',')].concat(
+      jobs.map(j => headers.map(h => {
+        const val = j[h];
+        if (val instanceof Date) return esc(val.toISOString());
+        return esc(val);
+      }).join(','))
+    ).join('\n');
+
+    res.setHeader('Content-Type', 'text/csv; charset=utf-8');
+    res.setHeader('Content-Disposition', 'attachment; filename="jobs-export.csv"');
+    res.send(`\uFEFF${rows}`); // include BOM for Excel UTF-8
+  } catch (err) {
+    next(err);
+  }
+};

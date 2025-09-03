@@ -30,6 +30,23 @@ export default function Jobs() {
     }
   }
 
+  const onExport = async () => {
+    try {
+      const res = await api.get('/jobs/export.csv', { responseType: 'blob' })
+      const blob = new Blob([res.data], { type: 'text/csv;charset=utf-8;' })
+      const url = URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = url
+      a.download = 'jobs-export.csv'
+      document.body.appendChild(a)
+      a.click()
+      a.remove()
+      URL.revokeObjectURL(url)
+    } catch (e) {
+      alert(e?.response?.data?.message || 'Failed to export jobs')
+    }
+  }
+
   if (loading) return <div>Loading jobs...</div>
   if (error) return <div className="text-red-600">{error}</div>
 
@@ -37,7 +54,10 @@ export default function Jobs() {
     <div>
       <div className="flex items-center justify-between mb-4">
         <h1 className="text-2xl font-semibold">My Jobs</h1>
-        <Link to="/jobs/new" className="text-blue-600">Add Job</Link>
+        <div className="flex items-center gap-4">
+          <button onClick={onExport} className="text-green-700">Export CSV</button>
+          <Link to="/jobs/new" className="text-blue-600">Add Job</Link>
+        </div>
       </div>
       <div className="grid gap-3">
         {jobs.map(j => (

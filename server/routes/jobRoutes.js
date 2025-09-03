@@ -1,10 +1,11 @@
 import { Router } from 'express';
 import { body } from 'express-validator';
-import { createJob, deleteJob, getJob, listJobs, updateJob } from '../controllers/jobController.js';
+import { createJob, deleteJob, getJob, listJobs, updateJob, exportJobsCsv } from '../controllers/jobController.js';
 
 const router = Router();
 
 router.get('/', listJobs);
+router.get('/export.csv', exportJobsCsv);
 router.get('/:id', getJob);
 router.post(
   '/',
