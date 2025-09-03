@@ -8,6 +8,7 @@ export default function Dashboard() {
   const [error, setError] = useState('')
 
   useEffect(() => {
+    if (!user) return
     const load = async () => {
       try {
         const { data } = await api.get('/jobs/stats')
@@ -17,12 +18,27 @@ export default function Dashboard() {
       }
     }
     load()
-  }, [])
+  }, [user])
+
+  if (!user) {
+    return (
+      <div className="space-y-6">
+        <section className="bg-gradient-to-r from-blue-50 to-indigo-50 border rounded p-6">
+          <h1 className="text-3xl font-semibold mb-2">Welcome</h1>
+          <p className="text-gray-600">Track your job hunt, stay organized, and keep momentum.</p>
+          <div className="mt-4 flex gap-3 text-sm">
+            <a href="/login" className="px-3 py-2 bg-blue-600 text-white rounded">Login</a>
+            <a href="/register" className="px-3 py-2 border rounded">Sign Up</a>
+          </div>
+        </section>
+      </div>
+    )
+  }
 
   return (
     <div className="space-y-6">
       <section className="bg-gradient-to-r from-blue-50 to-indigo-50 border rounded p-6">
-        <h1 className="text-3xl font-semibold mb-2">Welcome{user ? `, ${user.name}` : ''}</h1>
+        <h1 className="text-3xl font-semibold mb-2">Welcome, {user.name}</h1>
         <p className="text-gray-600">Track your job hunt, stay organized, and keep momentum.</p>
         <div className="mt-4 flex gap-3 text-sm">
           <a href="/jobs/new" className="px-3 py-2 bg-blue-600 text-white rounded">Add Job</a>

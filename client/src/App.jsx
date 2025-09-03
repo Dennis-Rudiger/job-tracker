@@ -28,6 +28,14 @@ const Layout = ({ children }) => (
       </div>
     </header>
     <main className="container mx-auto px-4 py-6 flex-1">{children}</main>
+    <footer className="border-t bg-white">
+      <div className="container mx-auto px-4 py-4 text-sm text-gray-600 flex flex-col sm:flex-row items-center justify-between">
+        <div>© {new Date().getFullYear()} Job Tracker</div>
+        <div>
+          Contact: <a className="text-blue-600" href="mailto:rudigabuilds@gmail.com">rudigabuilds@gmail.com</a>
+        </div>
+      </div>
+    </footer>
   </div>
 )
 
