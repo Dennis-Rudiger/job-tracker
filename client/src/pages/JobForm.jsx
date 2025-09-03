@@ -68,34 +68,34 @@ export default function JobForm({ mode }) {
   if (loading) return <div>Loading...</div>
 
   return (
-    <div className="max-w-lg mx-auto bg-white p-6 rounded shadow">
+    <div className="max-w-lg mx-auto bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 p-6 rounded shadow-sm">
       <h1 className="text-2xl font-semibold mb-4">{isEdit ? 'Edit Job' : 'Add Job'}</h1>
       {error && <div className="text-red-600 mb-2">{error}</div>}
       <form onSubmit={onSubmit} className="grid gap-3">
-        <input name="company" className="border px-3 py-2 rounded" placeholder="Company" value={form.company} onChange={onChange} required />
-        <input name="position" className="border px-3 py-2 rounded" placeholder="Position" value={form.position} onChange={onChange} required />
-        <select name="status" className="border px-3 py-2 rounded" value={form.status} onChange={onChange}>
+        <input name="company" className="border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-950 px-3 py-2 rounded" placeholder="Company" value={form.company} onChange={onChange} required />
+        <input name="position" className="border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-950 px-3 py-2 rounded" placeholder="Position" value={form.position} onChange={onChange} required />
+        <select name="status" className="border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-950 px-3 py-2 rounded" value={form.status} onChange={onChange}>
           <option value="applied">Applied</option>
           <option value="interview">Interview</option>
           <option value="offer">Offer</option>
           <option value="rejected">Rejected</option>
         </select>
-        <input name="location" className="border px-3 py-2 rounded" placeholder="Location" value={form.location} onChange={onChange} />
-        <input name="salary" type="number" className="border px-3 py-2 rounded" placeholder="Salary" value={form.salary} onChange={onChange} />
-        <input name="link" className="border px-3 py-2 rounded" placeholder="Link" value={form.link} onChange={onChange} />
-        <textarea name="notes" className="border px-3 py-2 rounded" placeholder="Notes" value={form.notes} onChange={onChange} />
+  <input name="location" className="border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-950 px-3 py-2 rounded" placeholder="Location" value={form.location} onChange={onChange} />
+  <input name="salary" type="number" className="border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-950 px-3 py-2 rounded" placeholder="Salary" value={form.salary} onChange={onChange} />
+  <input name="link" className="border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-950 px-3 py-2 rounded" placeholder="Link" value={form.link} onChange={onChange} />
+  <textarea name="notes" className="border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-950 px-3 py-2 rounded" placeholder="Notes" value={form.notes} onChange={onChange} />
         <div className="grid gap-2">
           <label className="text-sm text-gray-700">Dates</label>
           <div className="grid gap-2">
             <div className="grid gap-1">
-              <span className="text-xs text-gray-600">Date Applied</span>
-              <input name="dateApplied" type="date" className="border px-3 py-2 rounded" value={form.dateApplied} onChange={onChange} />
+              <span className="text-xs text-gray-600 dark:text-gray-300">Date Applied</span>
+              <input name="dateApplied" type="date" className="border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-950 px-3 py-2 rounded" value={form.dateApplied} onChange={onChange} />
             </div>
             <div className="grid gap-1">
-              <span className="text-xs text-gray-600">Interview Dates</span>
+        <span className="text-xs text-gray-600 dark:text-gray-300">Interview Dates</span>
               {form.interviewDates.map((d, idx) => (
                 <div key={idx} className="flex items-center gap-2">
-                  <input type="date" className="border px-3 py-2 rounded flex-1" value={d} onChange={(e) => onChangeInterview(idx, e.target.value)} />
+          <input type="date" className="border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-950 px-3 py-2 rounded flex-1" value={d} onChange={(e) => onChangeInterview(idx, e.target.value)} />
                   {form.interviewDates.length > 1 && (
                     <button type="button" onClick={() => removeInterview(idx)} className="text-red-600 text-sm">Remove</button>
                   )}
@@ -104,12 +104,12 @@ export default function JobForm({ mode }) {
               <button type="button" onClick={addInterview} className="text-blue-600 text-sm">+ Add interview date</button>
             </div>
             <div className="grid gap-1">
-              <span className="text-xs text-gray-600">Offer Date</span>
-              <input name="offerDate" type="date" className="border px-3 py-2 rounded" value={form.offerDate} onChange={onChange} />
+        <span className="text-xs text-gray-600 dark:text-gray-300">Offer Date</span>
+        <input name="offerDate" type="date" className="border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-950 px-3 py-2 rounded" value={form.offerDate} onChange={onChange} />
             </div>
             <div className="grid gap-1">
-              <span className="text-xs text-gray-600">Rejected Date</span>
-              <input name="rejectedDate" type="date" className="border px-3 py-2 rounded" value={form.rejectedDate} onChange={onChange} />
+        <span className="text-xs text-gray-600 dark:text-gray-300">Rejected Date</span>
+        <input name="rejectedDate" type="date" className="border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-950 px-3 py-2 rounded" value={form.rejectedDate} onChange={onChange} />
             </div>
           </div>
         </div>

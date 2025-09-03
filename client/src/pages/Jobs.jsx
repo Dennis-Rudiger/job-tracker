@@ -61,10 +61,10 @@ export default function Jobs() {
       </div>
       <div className="grid gap-3">
         {jobs.map(j => (
-          <div key={j._id} className="bg-white p-4 rounded shadow flex justify-between items-center">
+          <div key={j._id} className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 p-4 rounded shadow-sm flex justify-between items-center">
             <div>
               <div className="font-medium">{j.company} — {j.position}</div>
-              <div className="text-sm text-gray-600">Status: {j.status}</div>
+              <div className="text-sm text-gray-600 dark:text-gray-400">Status: {j.status}</div>
             </div>
             <div className="space-x-3">
               <Link to={`/jobs/${j._id}`} className="text-blue-600">Edit</Link>
