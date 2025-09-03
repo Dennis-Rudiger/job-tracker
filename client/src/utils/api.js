@@ -1,6 +1,18 @@
 import axios from 'axios'
 
-const baseURL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api'
+// Ensure baseURL always targets the Express /api prefix
+function resolveBaseURL() {
+  const raw = import.meta.env.VITE_API_URL
+  // Default to local server origin
+  let url = raw && typeof raw === 'string' && raw.trim() ? raw.trim() : 'http://localhost:5000'
+  // Remove trailing slashes
+  url = url.replace(/\/+$/, '')
+  // If it doesn't already end with /api, append it
+  if (!/\/api$/i.test(url)) url += '/api'
+  return url
+}
+
+const baseURL = resolveBaseURL()
 
 export const api = axios.create({ baseURL })
 
