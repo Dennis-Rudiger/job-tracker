@@ -44,19 +44,19 @@ server/   # Express API
 ## Environment Variables
 
 Server (`server/.env`)
-- MONGO_URI=mongodb+srv://...
+- MONGO_URI=mongodb  uri
 - MONGO_DB_NAME=job-tracker
 - JWT_SECRET=change_me
 - JWT_EXPIRES_IN=7d
 - PORT=5000
 - NODE_ENV=production|development
-- CORS_ORIGIN=https://my-job-tracked.vercel.app,http://localhost:3000
+- CORS_ORIGIN=https://yourapp.vercel.app,http://localhost:3000
 
 Client (`client/.env`)
-- VITE_API_URL=https://job-tracker-ct3g.onrender.com
+- VITE_API_URL=yourserverapp
 	- Note: the client ensures the trailing `/api` path automatically; both forms work:
-		- https://job-tracker-ct3g.onrender.com
-		- https://job-tracker-ct3g.onrender.com/api
+		- https://yourserverapp.onrender.com
+		- https://yourserverapp.onrender.com/api
 
 ## Local Development (Windows PowerShell)
 
@@ -87,7 +87,7 @@ npm run dev:client
 ## Production Deployment
 
 Frontend (Vercel)
-- Add env: VITE_API_URL=https://job-tracker-ct3g.onrender.com (or .../api)
+- Add env: VITE_API_URL=https://yourserver.onrender.com (or .../api)
 - Ensure SPA rewrite is configured (see `client/vercel.json`)
 - Redeploy
 
