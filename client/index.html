@@ -3,7 +3,37 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Job Tracker</title>
+  <title>Job Tracker — Track your job applications</title>
+  <meta name="description" content="A minimal job application tracker: add, update, and review your applications and statuses." />
+  <meta name="robots" content="index,follow" />
+  <meta name="theme-color" content="#ffffff" />
+  <link rel="canonical" href="http://localhost:3000/" />
+  <!-- Open Graph -->
+  <meta property="og:title" content="Job Tracker" />
+  <meta property="og:description" content="Track your job applications and their statuses." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="http://localhost:3000/" />
+  <meta property="og:image" content="/og-image.png" />
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Job Tracker" />
+  <meta name="twitter:description" content="Track your job applications and their statuses." />
+  <meta name="twitter:image" content="/og-image.png" />
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Job Tracker",
+        "url": "http://localhost:3000/",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "http://localhost:3000/jobs?search={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>
