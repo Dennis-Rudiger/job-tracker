@@ -6,6 +6,7 @@ import Register from './pages/Register'
 import Dashboard from './pages/Dashboard'
 import Jobs from './pages/Jobs'
 import JobForm from './pages/JobForm'
+import Profile from './pages/Profile'
 
 const Protected = ({ children }) => {
   const { token } = useAuth()
@@ -19,8 +20,10 @@ const Layout = ({ children }) => (
       <div className="container mx-auto px-4 py-3 flex justify-between items-center">
         <Link to="/" className="font-semibold">Job Tracker</Link>
         <nav className="space-x-4">
+          <Link to="/" className="hover:underline">Home</Link>
           <Link to="/jobs" className="hover:underline">Jobs</Link>
           <Link to="/jobs/new" className="hover:underline">Add</Link>
+          <Link to="/profile" className="hover:underline">Profile</Link>
         </nav>
       </div>
     </header>
@@ -38,6 +41,7 @@ export default function App() {
         <Route path="/jobs" element={<Protected><Layout><Jobs /></Layout></Protected>} />
         <Route path="/jobs/new" element={<Protected><Layout><JobForm mode="create" /></Layout></Protected>} />
         <Route path="/jobs/:id" element={<Protected><Layout><JobForm mode="edit" /></Layout></Protected>} />
+  <Route path="/profile" element={<Protected><Layout><Profile /></Layout></Protected>} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </AuthProvider>

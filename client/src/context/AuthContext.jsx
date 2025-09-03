@@ -31,7 +31,13 @@ export function AuthProvider({ children }) {
 
   const logout = () => { setToken(null); setUser(null) }
 
-  const value = useMemo(() => ({ token, user, login, register, logout }), [token, user])
+  const updateProfile = async (payload) => {
+    const { data } = await api.patch('/auth/me', payload)
+    setUser(data.user)
+    return data.user
+  }
+
+  const value = useMemo(() => ({ token, user, login, register, logout, updateProfile }), [token, user])
 
   return <AuthCtx.Provider value={value}>{children}</AuthCtx.Provider>
 }

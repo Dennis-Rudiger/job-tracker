@@ -85,7 +85,7 @@ export const exportJobsCsv = async (req, res, next) => {
   try {
     const jobs = await Job.find({ createdBy: req.user._id }).sort({ createdAt: -1 }).lean();
     const headers = [
-      'company', 'position', 'status', 'location', 'salary', 'link', 'notes', 'dateApplied', 'createdAt', 'updatedAt'
+      'company', 'position', 'status', 'location', 'salary', 'link', 'notes', 'dateApplied', 'interviewDates', 'offerDate', 'rejectedDate', 'createdAt', 'updatedAt'
     ];
     const esc = (v) => {
       if (v === null || v === undefined) return '';
@@ -94,8 +94,12 @@ export const exportJobsCsv = async (req, res, next) => {
     };
     const rows = [headers.join(',')].concat(
       jobs.map(j => headers.map(h => {
-        const val = j[h];
-        if (val instanceof Date) return esc(val.toISOString());
+        let val = j[h];
+        if (Array.isArray(val)) {
+          val = val.map(d => d instanceof Date ? d.toISOString() : d).join(';');
+        } else if (val instanceof Date) {
+          val = val.toISOString();
+        }
         return esc(val);
       }).join(','))
     ).join('\n');
@@ -103,6 +107,33 @@ export const exportJobsCsv = async (req, res, next) => {
     res.setHeader('Content-Type', 'text/csv; charset=utf-8');
     res.setHeader('Content-Disposition', 'attachment; filename="jobs-export.csv"');
     res.send(`\uFEFF${rows}`); // include BOM for Excel UTF-8
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const stats = async (req, res, next) => {
+  try {
+    const [{ counts = [], last30 = 0 } = {}] = await Job.aggregate([
+      { $match: { createdBy: req.user._id } },
+      {
+        $facet: {
+          counts: [
+            { $group: { _id: '$status', count: { $sum: 1 } } },
+            { $project: { _id: 0, status: '$_id', count: 1 } }
+          ],
+          last30: [
+            { $match: { dateApplied: { $gte: new Date(Date.now() - 1000 * 60 * 60 * 24 * 30) } } },
+            { $count: 'value' }
+          ]
+        }
+      }
+    ]);
+
+    const byStatus = counts.reduce((acc, cur) => { acc[cur.status] = cur.count; return acc; }, {});
+    const total = Object.values(byStatus).reduce((a, b) => a + b, 0);
+    const last30Applied = Array.isArray(last30) ? (last30[0]?.value || 0) : last30;
+    res.json({ total, byStatus: { applied: byStatus.applied || 0, interview: byStatus.interview || 0, offer: byStatus.offer || 0, rejected: byStatus.rejected || 0 }, last30Applied });
   } catch (err) {
     next(err);
   }

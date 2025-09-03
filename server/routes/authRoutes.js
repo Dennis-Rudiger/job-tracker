@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { body } from 'express-validator';
-import { login, me, register } from '../controllers/authController.js';
+import { login, me, register, updateProfile } from '../controllers/authController.js';
 import { auth } from '../middleware/auth.js';
 
 const router = Router();
@@ -25,5 +25,15 @@ router.post(
 );
 
 router.get('/me', auth, me);
+router.patch(
+  '/me',
+  auth,
+  [
+    body('name').optional().isLength({ min: 1 }).withMessage('Name must not be empty'),
+    body('email').optional().isEmail().withMessage('Valid email is required'),
+    body('password').optional().isLength({ min: 6 }).withMessage('Password min length is 6'),
+  ],
+  updateProfile
+);
 
 export default router;

@@ -14,6 +14,9 @@ const jobSchema = new mongoose.Schema(
     link: { type: String, trim: true },
     notes: { type: String, trim: true },
     dateApplied: { type: Date },
+  interviewDates: [{ type: Date }],
+  offerDate: { type: Date },
+  rejectedDate: { type: Date },
     createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
   },
   { timestamps: true }
