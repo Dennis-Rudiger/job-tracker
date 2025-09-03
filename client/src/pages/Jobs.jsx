@@ -19,6 +19,17 @@ export default function Jobs() {
     run()
   }, [])
 
+  const onDelete = async (id) => {
+    const confirm = window.confirm('Delete this job?')
+    if (!confirm) return
+    try {
+      await api.delete(`/jobs/${id}`)
+      setJobs((list) => list.filter((j) => j._id !== id))
+    } catch (e) {
+      alert(e?.response?.data?.message || 'Failed to delete job')
+    }
+  }
+
   if (loading) return <div>Loading jobs...</div>
   if (error) return <div className="text-red-600">{error}</div>
 
@@ -37,6 +48,7 @@ export default function Jobs() {
             </div>
             <div className="space-x-3">
               <Link to={`/jobs/${j._id}`} className="text-blue-600">Edit</Link>
+              <button onClick={() => onDelete(j._id)} className="text-red-600">Delete</button>
             </div>
           </div>
         ))}
