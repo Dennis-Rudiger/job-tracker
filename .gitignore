@@ -1,0 +1,50 @@
+# Node
+node_modules/
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Env files (keep examples)
+.env
+.env.*
+!*.env.example
+server/.env
+client/.env
+
+# Build output
+dist/
+build/
+server/dist/
+client/dist/
+
+# Caches
+.cache/
+.vite/
+node_modules/.vite/
+.eslintcache
+
+# IDE/editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Coverage
+coverage/
+
+# Misc
+*.pid
+*.pid.lock
+*.seed
+*.tgz
+*.gz
+*.zip

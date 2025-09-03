@@ -1,0 +1,18 @@
+{
+	"name": "job-tracker",
+	"version": "1.0.0",
+	"private": true,
+	"engines": {
+		"node": ">=18"
+	},
+	"workspaces": [
+		"server",
+		"client"
+	],
+	"scripts": {
+		"dev:server": "npm run dev -w server",
+		"dev:client": "npm run dev -w client",
+		"start:server": "npm start -w server",
+		"build:client": "npm run build -w client"
+	}
+}
